@@ -19,7 +19,7 @@ export const pagePaths = async () => {
   let endCursor = "";
 
   while (hasNextPage) {
-    const response: ApolloQueryResult<PagePathsQuery> = await serverApolloClient.query<
+    const response: ApolloQueryResult<PagePathsQuery> = await serverApolloClient().query<
       PagePathsQuery,
       PagePathsQueryVariables
     >({

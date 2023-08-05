@@ -25,7 +25,7 @@ export const collectionPaths = async () => {
     let endCursor = "";
 
     while (hasNextPage) {
-      const response: ApolloQueryResult<CollectionPathsQuery> = await serverApolloClient.query<
+      const response: ApolloQueryResult<CollectionPathsQuery> = await serverApolloClient().query<
         CollectionPathsQuery,
         CollectionPathsQueryVariables
       >({

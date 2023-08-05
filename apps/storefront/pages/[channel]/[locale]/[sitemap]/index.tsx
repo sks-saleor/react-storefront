@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (ctx.params) {
     if (ctx.params.sitemap === "category") {
       const result: ApolloQueryResult<CategoryPathsQuery | undefined> =
-        await serverApolloClient.query({
+        await serverApolloClient().query({
           query: CategoryPathsDocument,
           variables: {},
         });
@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       }));
     } else if (ctx.params.sitemap === "collection") {
       const result: ApolloQueryResult<CollectionPathsQuery | undefined> =
-        await serverApolloClient.query({
+        await serverApolloClient().query({
           query: CollectionPathsDocument,
           variables: {},
         });
@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       }));
     } else if (ctx.params.sitemap === "product") {
       const result: ApolloQueryResult<ProductPathsQuery | undefined> =
-        await serverApolloClient.query({
+        await serverApolloClient().query({
           query: ProductPathsDocument,
           variables: {},
         });

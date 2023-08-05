@@ -21,7 +21,7 @@ export const productPaths = async () => {
     let endCursor = "";
 
     while (hasNextPage) {
-      const response: ApolloQueryResult<ProductPathsQuery> = await serverApolloClient.query<
+      const response: ApolloQueryResult<ProductPathsQuery> = await serverApolloClient().query<
         ProductPathsQuery,
         ProductPathsQueryVariables
       >({

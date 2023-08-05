@@ -1,14 +1,17 @@
+import { getSubdomain } from "@/lib/subdomain";
 import Document, { DocumentContext, Head, Html, Main, NextScript } from "next/document";
 
-class MyDocument extends Document<{ lang?: string }> {
+class MyDocument extends Document<{ lang?: string; API_URI: string }> {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
-
-    return { ...initialProps, lang: ctx?.query?.locale };
+    const { API_URI } = getSubdomain(ctx.req?.headers.host!);
+    return { ...initialProps, lang: ctx?.query?.locale, API_URI };
   }
 
   render() {
-    const uri = process.env.NEXT_PUBLIC_API_URI!;
+    // @todo remove this hack when we have a better solution for API_URI
+    process.env.API_URI = this.props.API_URI;
+    const uri = process.env.API_URI!;
     const { hostname } = new URL(uri);
 
     return (

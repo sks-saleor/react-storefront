@@ -1,4 +1,3 @@
-import { ApolloQueryResult } from "@apollo/client";
 import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import React, { ReactElement } from "react";
 
@@ -6,31 +5,24 @@ import { HomepageBlock, Layout } from "@/components";
 import { BaseSeo } from "@/components/seo/BaseSeo";
 import { HOMEPAGE_MENU } from "@/lib/const";
 import { contextToRegionQuery } from "@/lib/regions";
-import {
-  HomepageBlocksQuery,
-  HomepageBlocksQueryDocument,
-  HomepageBlocksQueryVariables,
-} from "@/saleor/api";
-import { serverApolloClient } from "@/lib/ssr/common";
+import { useHomepageBlocksQuery } from "@/saleor/api";
 import BannerPage from "@/components/BannerPage";
 import { ProductTypes } from "@/components/ProductTypes";
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const result: ApolloQueryResult<HomepageBlocksQuery> = await serverApolloClient.query<
-    HomepageBlocksQuery,
-    HomepageBlocksQueryVariables
-  >({
-    query: HomepageBlocksQueryDocument,
-    variables: { slug: HOMEPAGE_MENU, ...contextToRegionQuery(context) },
-  });
   return {
     props: {
-      menuData: result?.data,
+      context: contextToRegionQuery(context),
     },
     revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
   };
 };
-function Home({ menuData }: InferGetStaticPropsType<typeof getStaticProps>) {
+function Home({ context }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { data } = useHomepageBlocksQuery({
+    variables: { slug: HOMEPAGE_MENU, ...context },
+  });
+  const menuData = data;
+  console.log("menuData::: ", menuData);
   return (
     <>
       <BaseSeo />

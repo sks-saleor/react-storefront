@@ -31,7 +31,7 @@ export const getStaticProps = async (
   }
 
   const collectionSlug = context.params.slug.toString();
-  const response: ApolloQueryResult<CollectionBySlugQuery> = await serverApolloClient.query<
+  const response: ApolloQueryResult<CollectionBySlugQuery> = await serverApolloClient().query<
     CollectionBySlugQuery,
     CollectionBySlugQueryVariables
   >({
@@ -43,7 +43,7 @@ export const getStaticProps = async (
   });
 
   const attributesResponse: ApolloQueryResult<FilteringAttributesQuery> =
-    await serverApolloClient.query<FilteringAttributesQuery, FilteringAttributesQueryVariables>({
+    await serverApolloClient().query<FilteringAttributesQuery, FilteringAttributesQueryVariables>({
       query: FilteringAttributesQueryDocument,
       variables: {
         ...contextToRegionQuery(context),

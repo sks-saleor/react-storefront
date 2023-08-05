@@ -25,7 +25,10 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
+  // console.log("MyApp::: ", API_URI, process.env.API_URI);
+
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
+
   const useSaleorAuthClientProps = useSaleorAuthClient({
     saleorApiUrl: API_URI,
   });

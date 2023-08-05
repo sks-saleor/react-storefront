@@ -31,7 +31,7 @@ export const getStaticProps = async (
   }
 
   const pageSlug = context.params.slug.toString();
-  const response: ApolloQueryResult<PageQuery> = await serverApolloClient.query<
+  const response: ApolloQueryResult<PageQuery> = await serverApolloClient().query<
     PageQuery,
     PageQueryVariables
   >({

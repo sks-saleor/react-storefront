@@ -52,7 +52,7 @@ export const getStaticProps = async (
   }
 
   const productSlug = context.params.slug.toString();
-  const response: ApolloQueryResult<ProductBySlugQuery> = await serverApolloClient.query<
+  const response: ApolloQueryResult<ProductBySlugQuery> = await serverApolloClient().query<
     ProductBySlugQuery,
     ProductBySlugQueryVariables
   >({

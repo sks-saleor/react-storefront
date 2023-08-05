@@ -23,7 +23,7 @@ export const categoryPaths = async () => {
   let endCursor = "";
 
   while (hasNextPage) {
-    const response: ApolloQueryResult<CategoryPathsQuery> = await serverApolloClient.query<
+    const response: ApolloQueryResult<CategoryPathsQuery> = await serverApolloClient().query<
       CategoryPathsQuery,
       CategoryPathsQueryVariables
     >({

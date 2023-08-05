@@ -69,7 +69,7 @@ export const getActionsAfterRefund = (
   refundAmount: number
 ) => {
   const getTransactionAmount = getTransactionAmountGetter({
-    voided: transaction?.voidedAmount.amount,
+    voided: transaction?.canceledAmount.amount,
     charged: transaction?.chargedAmount.amount,
     refunded: transaction?.refundedAmount.amount,
     authorized: transaction?.authorizedAmount.amount,
@@ -90,14 +90,14 @@ export const getActionsAfterRefund = (
   return transactionActions;
 };
 
-type TransactionWithType = Pick<TransactionItem, "type">;
+type TransactionWithType = Pick<TransactionItem, "message">;
 
 export const isMollieTransaction = (transaction: TransactionWithType) => {
-  return transaction.type.includes(MOLLIE_PAYMENT_PREFIX);
+  return transaction.message.includes(MOLLIE_PAYMENT_PREFIX);
 };
 
 export const isDummyTransaction = (transaction: TransactionWithType) => {
-  return transaction.type.includes(DUMMY_PAYMENT_TYPE);
+  return transaction.message.includes(DUMMY_PAYMENT_TYPE);
 };
 
 // Some payment methods expect the amount to be in cents (integers)
