@@ -1,7 +1,6 @@
 import { invariant } from "@apollo/client/utilities/globals";
 
 export const getSubdomain = (host: string) => {
-  invariant(host, "Missing host");
   const hosts = host?.split(".") ?? [];
   let subdomain = "",
     API_URI = "";
