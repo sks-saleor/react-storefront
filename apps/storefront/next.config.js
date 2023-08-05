@@ -3,7 +3,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-const apiURL = new URL(process.env.NEXT_PUBLIC_API_URI);
 const allowedImageDomains = process.env.NEXT_PUBLIC_ALLOWED_IMAGE_DOMAINS
   ? process.env.NEXT_PUBLIC_ALLOWED_IMAGE_DOMAINS.split(",")
   : [];
@@ -14,7 +13,7 @@ module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: [apiURL.hostname, "s3.ap-southeast-1.amazonaws.com", ...allowedImageDomains],
+    domains: ["s3.ap-southeast-1.amazonaws.com", ...allowedImageDomains],
     formats: ["image/avif", "image/webp"],
     unoptimized: true,
   },
@@ -50,22 +49,10 @@ module.exports = withBundleAnalyzer({
         source: "/checkout/(.*)",
         headers: [{ key: "x-frame-options", value: "ALLOWALL" }],
       },
-
-      {
-        source: "/graphql/(.*?)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0",
-          },
-          { key: "Expires", value: "0" },
-          { key: "Pragma", value: "no-cache" },
-        ],
-      },
     ];
   },
   async rewrites() {
-    const cloudDeploymentUrl = process.env.CLOUD_DEPLOYMENT_URL;
+    const cloudDeploymentUrl = process.env.DASHBOARD_DEPLOYMENT_URL;
 
     return [
       {
@@ -96,36 +83,8 @@ module.exports = withBundleAnalyzer({
       ...(cloudDeploymentUrl
         ? [
             {
-              source: "/media/:match*",
-              destination: `${cloudDeploymentUrl}/media/:match*`,
-            },
-            {
-              source: "/graphql/:match*",
-              destination: `${cloudDeploymentUrl}/graphql/:match*`,
-            },
-            {
-              source: "/graphql/",
-              destination: `${cloudDeploymentUrl}/graphql/`,
-            },
-            {
-              source: "/plugins/:match*",
-              destination: `${cloudDeploymentUrl}/plugins/:match*`,
-            },
-            {
-              source: "/digital-download/:match*",
-              destination: `${cloudDeploymentUrl}/digital-download/:match*`,
-            },
-            {
-              source: "/thumbnail/:instance/:size/:format/",
-              destination: `${cloudDeploymentUrl}/thumbnail/:instance/:size/:format/`,
-            },
-            {
-              source: "/thumbnail/:instance/:size/",
-              destination: `${cloudDeploymentUrl}/thumbnail/:instance/:size/`,
-            },
-            {
-              source: "/.well-known/jwks.json",
-              destination: `${cloudDeploymentUrl}/.well-known/jwks.json`,
+              source: "/dashboard/:match*",
+              destination: `${cloudDeploymentUrl}/dashboard/:match*`,
             },
           ]
         : []),
