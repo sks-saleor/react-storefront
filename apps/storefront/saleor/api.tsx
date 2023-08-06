@@ -141,9 +141,39 @@ export type AccountConfirmationRequested = Event & {
 };
 
 /**
+ * Event sent when account is confirmed.
+ *
+ * Added in Saleor 3.15.
+ */
+export type AccountConfirmed = Event & {
+  __typename?: "AccountConfirmed";
+  /** The channel data. */
+  channel?: Maybe<Channel>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** The URL to redirect the user after he accepts the request. */
+  redirectUrl?: Maybe<Scalars["String"]>;
+  /** Shop data. */
+  shop?: Maybe<Shop>;
+  /** The token required to confirm request. */
+  token?: Maybe<Scalars["String"]>;
+  /** The user the event relates to. */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
  * Remove user account.
  *
  * Requires one of the following permissions: AUTHENTICATED_USER.
+ *
+ * Triggers the following webhook events:
+ * - ACCOUNT_DELETED (async): Account was deleted.
  */
 export type AccountDelete = {
   __typename?: "AccountDelete";
@@ -166,6 +196,62 @@ export type AccountDeleteRequested = Event & {
   issuedAt?: Maybe<Scalars["DateTime"]>;
   /** The user or application that triggered the event. */
   issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** The URL to redirect the user after he accepts the request. */
+  redirectUrl?: Maybe<Scalars["String"]>;
+  /** Shop data. */
+  shop?: Maybe<Shop>;
+  /** The token required to confirm request. */
+  token?: Maybe<Scalars["String"]>;
+  /** The user the event relates to. */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Event sent when account is deleted.
+ *
+ * Added in Saleor 3.15.
+ */
+export type AccountDeleted = Event & {
+  __typename?: "AccountDeleted";
+  /** The channel data. */
+  channel?: Maybe<Channel>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** The URL to redirect the user after he accepts the request. */
+  redirectUrl?: Maybe<Scalars["String"]>;
+  /** Shop data. */
+  shop?: Maybe<Shop>;
+  /** The token required to confirm request. */
+  token?: Maybe<Scalars["String"]>;
+  /** The user the event relates to. */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Event sent when account email is changed.
+ *
+ * Added in Saleor 3.15.
+ */
+export type AccountEmailChanged = Event & {
+  __typename?: "AccountEmailChanged";
+  /** The channel data. */
+  channel?: Maybe<Channel>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The new email address. */
+  newEmail?: Maybe<Scalars["String"]>;
   /** The application receiving the webhook. */
   recipient?: Maybe<App>;
   /** The URL to redirect the user after he accepts the request. */
@@ -318,6 +404,33 @@ export type AccountSetDefaultAddress = {
   errors: Array<AccountError>;
   /** An updated user instance. */
   user?: Maybe<User>;
+};
+
+/**
+ * Event sent when setting a new password is requested.
+ *
+ * Added in Saleor 3.15.
+ */
+export type AccountSetPasswordRequested = Event & {
+  __typename?: "AccountSetPasswordRequested";
+  /** The channel data. */
+  channel?: Maybe<Channel>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** The URL to redirect the user after he accepts the request. */
+  redirectUrl?: Maybe<Scalars["String"]>;
+  /** Shop data. */
+  shop?: Maybe<Shop>;
+  /** The token required to confirm request. */
+  token?: Maybe<Scalars["String"]>;
+  /** The user the event relates to. */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
 };
 
 /**
@@ -3576,6 +3689,25 @@ export type ChannelListingUpdateInput = {
 };
 
 /**
+ * Event sent when channel metadata is updated.
+ *
+ * Added in Saleor 3.15.
+ */
+export type ChannelMetadataUpdated = Event & {
+  __typename?: "ChannelMetadataUpdated";
+  /** The channel the event relates to. */
+  channel?: Maybe<Channel>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
  * Reorder the warehouses of a channel.
  *
  * Added in Saleor 3.7.
@@ -3616,6 +3748,7 @@ export type ChannelStatusChanged = Event & {
  *
  * Triggers the following webhook events:
  * - CHANNEL_UPDATED (async): A channel was updated.
+ * - CHANNEL_METADATA_UPDATED (async): Optionally triggered when public or private metadata is updated.
  */
 export type ChannelUpdate = {
   __typename?: "ChannelUpdate";
@@ -5359,7 +5492,12 @@ export type ConfigurationTypeFieldEnum =
   | "SECRETMULTILINE"
   | "STRING";
 
-/** Confirm user account with token sent by email during registration. */
+/**
+ * Confirm user account with token sent by email during registration.
+ *
+ * Triggers the following webhook events:
+ * - ACCOUNT_CONFIRMED (async): Account was confirmed.
+ */
 export type ConfirmAccount = {
   __typename?: "ConfirmAccount";
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
@@ -5377,6 +5515,7 @@ export type ConfirmAccount = {
  * Triggers the following webhook events:
  * - CUSTOMER_UPDATED (async): A customer account was updated.
  * - NOTIFY_USER (async): A notification that account email change was confirmed.
+ * - ACCOUNT_EMAIL_CHANGED (async): An account email was changed.
  */
 export type ConfirmEmailChange = {
   __typename?: "ConfirmEmailChange";
@@ -5788,6 +5927,7 @@ export type CustomerBulkUpdateInput = {
  * - CUSTOMER_CREATED (async): A new customer account was created.
  * - CUSTOMER_METADATA_UPDATED (async): Optionally called when customer's metadata was updated.
  * - NOTIFY_USER (async): A notification for setting the password.
+ * - ACCOUNT_SET_PASSWORD_REQUESTED (async): Setting a new password for the account is requested.
  */
 export type CustomerCreate = {
   __typename?: "CustomerCreate";
@@ -9391,6 +9531,9 @@ export type Mutation = {
    * Remove user account.
    *
    * Requires one of the following permissions: AUTHENTICATED_USER.
+   *
+   * Triggers the following webhook events:
+   * - ACCOUNT_DELETED (async): Account was deleted.
    */
   accountDelete?: Maybe<AccountDelete>;
   /**
@@ -9767,6 +9910,7 @@ export type Mutation = {
    *
    * Triggers the following webhook events:
    * - CHANNEL_UPDATED (async): A channel was updated.
+   * - CHANNEL_METADATA_UPDATED (async): Optionally triggered when public or private metadata is updated.
    */
   channelUpdate?: Maybe<ChannelUpdate>;
   /**
@@ -9964,7 +10108,12 @@ export type Mutation = {
    * Requires one of the following permissions: MANAGE_PRODUCTS.
    */
   collectionUpdate?: Maybe<CollectionUpdate>;
-  /** Confirm user account with token sent by email during registration. */
+  /**
+   * Confirm user account with token sent by email during registration.
+   *
+   * Triggers the following webhook events:
+   * - ACCOUNT_CONFIRMED (async): Account was confirmed.
+   */
   confirmAccount?: Maybe<ConfirmAccount>;
   /**
    * Confirm the email change of the logged-in user.
@@ -9974,6 +10123,7 @@ export type Mutation = {
    * Triggers the following webhook events:
    * - CUSTOMER_UPDATED (async): A customer account was updated.
    * - NOTIFY_USER (async): A notification that account email change was confirmed.
+   * - ACCOUNT_EMAIL_CHANGED (async): An account email was changed.
    */
   confirmEmailChange?: Maybe<ConfirmEmailChange>;
   /**
@@ -10014,6 +10164,7 @@ export type Mutation = {
    * - CUSTOMER_CREATED (async): A new customer account was created.
    * - CUSTOMER_METADATA_UPDATED (async): Optionally called when customer's metadata was updated.
    * - NOTIFY_USER (async): A notification for setting the password.
+   * - ACCOUNT_SET_PASSWORD_REQUESTED (async): Setting a new password for the account is requested.
    */
   customerCreate?: Maybe<CustomerCreate>;
   /**
@@ -11057,6 +11208,8 @@ export type Mutation = {
    *
    * Triggers the following webhook events:
    * - NOTIFY_USER (async): A notification for password reset.
+   * - ACCOUNT_SET_PASSWORD_REQUESTED (async): Setting a new password for the account is requested.
+   * - STAFF_SET_PASSWORD_REQUESTED (async): Setting a new password for the staff account is requested.
    */
   requestPasswordReset?: Maybe<RequestPasswordReset>;
   /**
@@ -11267,6 +11420,7 @@ export type Mutation = {
    * Triggers the following webhook events:
    * - STAFF_CREATED (async): A new staff account was created.
    * - NOTIFY_USER (async): A notification for setting the password.
+   * - STAFF_SET_PASSWORD_REQUESTED (async): Setting a new password for the staff account is requested.
    */
   staffCreate?: Maybe<StaffCreate>;
   /**
@@ -15516,8 +15670,11 @@ export type Page = Node &
      * @deprecated This field will be removed in Saleor 4.0. Use the `content` field instead.
      */
     contentJson: Scalars["JSONString"];
+    /** Date and time at which page was created. */
     created: Scalars["DateTime"];
+    /** ID of the page. */
     id: Scalars["ID"];
+    /** Determines if the page is published. */
     isPublished: Scalars["Boolean"];
     /** List of public metadata items. Can be accessed without permissions. */
     metadata: Array<MetadataItem>;
@@ -15535,6 +15692,7 @@ export type Page = Node &
      * Added in Saleor 3.3.
      */
     metafields?: Maybe<Scalars["Metadata"]>;
+    /** Determines the type of page */
     pageType: PageType;
     /** List of private metadata items. Requires staff permissions to access. */
     privateMetadata: Array<MetadataItem>;
@@ -15560,9 +15718,13 @@ export type Page = Node &
      * Added in Saleor 3.3.
      */
     publishedAt?: Maybe<Scalars["DateTime"]>;
+    /** Description of the page for SEO. */
     seoDescription?: Maybe<Scalars["String"]>;
+    /** Title of the page for SEO. */
     seoTitle?: Maybe<Scalars["String"]>;
+    /** Slug of the page. */
     slug: Scalars["String"];
+    /** Title of the page. */
     title: Scalars["String"];
     /** Returns translated page fields for the given language code. */
     translation?: Maybe<PageTranslation>;
@@ -16000,6 +16162,7 @@ export type PageType = Node &
      * Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES.
      */
     hasPages?: Maybe<Scalars["Boolean"]>;
+    /** ID of the page type. */
     id: Scalars["ID"];
     /** List of public metadata items. Can be accessed without permissions. */
     metadata: Array<MetadataItem>;
@@ -16017,6 +16180,7 @@ export type PageType = Node &
      * Added in Saleor 3.3.
      */
     metafields?: Maybe<Scalars["Metadata"]>;
+    /** Name of the page type. */
     name: Scalars["String"];
     /** List of private metadata items. Requires staff permissions to access. */
     privateMetadata: Array<MetadataItem>;
@@ -16034,6 +16198,7 @@ export type PageType = Node &
      * Added in Saleor 3.3.
      */
     privateMetafields?: Maybe<Scalars["Metadata"]>;
+    /** Slug of the page type. */
     slug: Scalars["String"];
   };
 
@@ -16318,7 +16483,9 @@ export type Payment = Node &
     capturedAmount?: Maybe<Money>;
     /** Internal payment status. */
     chargeStatus: PaymentChargeStatusEnum;
+    /** Checkout associated with a payment. */
     checkout?: Maybe<Checkout>;
+    /** Date and time at which payment was created. */
     created: Scalars["DateTime"];
     /** The details of the card used for this payment. */
     creditCard?: Maybe<CreditCard>;
@@ -16328,8 +16495,11 @@ export type Payment = Node &
      * Requires one of the following permissions: MANAGE_ORDERS.
      */
     customerIpAddress?: Maybe<Scalars["String"]>;
+    /** Payment gateway used for payment. */
     gateway: Scalars["String"];
+    /** ID of the payment. */
     id: Scalars["ID"];
+    /** Determines if the payment is active or not. */
     isActive: Scalars["Boolean"];
     /** List of public metadata items. Can be accessed without permissions. */
     metadata: Array<MetadataItem>;
@@ -16347,8 +16517,11 @@ export type Payment = Node &
      * Added in Saleor 3.3.
      */
     metafields?: Maybe<Scalars["Metadata"]>;
+    /** Date and time at which payment was modified. */
     modified: Scalars["DateTime"];
+    /** Order associated with a payment. */
     order?: Maybe<Order>;
+    /** Type of method used for payment. */
     paymentMethodType: Scalars["String"];
     /** List of private metadata items. Requires staff permissions to access. */
     privateMetadata: Array<MetadataItem>;
@@ -16366,6 +16539,7 @@ export type Payment = Node &
      * Added in Saleor 3.3.
      */
     privateMetafields?: Maybe<Scalars["Metadata"]>;
+    /** Unique token associated with a payment. */
     token: Scalars["String"];
     /** Total amount of the payment. */
     total?: Maybe<Money>;
@@ -16604,6 +16778,7 @@ export type PaymentGatewayConfigErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_F
 export type PaymentGatewayInitialize = {
   __typename?: "PaymentGatewayInitialize";
   errors: Array<PaymentGatewayInitializeError>;
+  /** List of payment gateway configurations. */
   gatewayConfigs?: Maybe<Array<PaymentGatewayConfig>>;
 };
 
@@ -16656,6 +16831,7 @@ export type PaymentGatewayToInitialize = {
 export type PaymentInitialize = {
   __typename?: "PaymentInitialize";
   errors: Array<PaymentError>;
+  /** Payment that was initialized. */
   initializedPayment?: Maybe<PaymentInitialized>;
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   paymentErrors: Array<PaymentError>;
@@ -19082,7 +19258,7 @@ export type ProductVariant = Node &
      * Requires one of the following permissions: MANAGE_PRODUCTS, MANAGE_ORDERS.
      */
     stocks?: Maybe<Array<Stock>>;
-    /** Whether the inventory of the variant is tracked. */
+    /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used. */
     trackInventory: Scalars["Boolean"];
     /** Returns translated product variant fields for the given language code. */
     translation?: Maybe<ProductVariantTranslation>;
@@ -19237,7 +19413,7 @@ export type ProductVariantBulkCreateInput = {
   sku?: InputMaybe<Scalars["String"]>;
   /** Stocks of a product available for sale. */
   stocks?: InputMaybe<Array<StockInput>>;
-  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. */
+  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used. */
   trackInventory?: InputMaybe<Scalars["Boolean"]>;
   /** Weight of the Product Variant. */
   weight?: InputMaybe<Scalars["WeightScalar"]>;
@@ -19445,7 +19621,7 @@ export type ProductVariantBulkUpdateInput = {
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   stocks?: InputMaybe<ProductVariantStocksUpdateInput>;
-  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. */
+  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used. */
   trackInventory?: InputMaybe<Scalars["Boolean"]>;
   /** Weight of the Product Variant. */
   weight?: InputMaybe<Scalars["WeightScalar"]>;
@@ -19585,7 +19761,7 @@ export type ProductVariantCreateInput = {
   sku?: InputMaybe<Scalars["String"]>;
   /** Stocks of a product available for sale. */
   stocks?: InputMaybe<Array<StockInput>>;
-  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. */
+  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used. */
   trackInventory?: InputMaybe<Scalars["Boolean"]>;
   /** Weight of the Product Variant. */
   weight?: InputMaybe<Scalars["WeightScalar"]>;
@@ -19705,7 +19881,7 @@ export type ProductVariantInput = {
   quantityLimitPerCustomer?: InputMaybe<Scalars["Int"]>;
   /** Stock keeping unit. */
   sku?: InputMaybe<Scalars["String"]>;
-  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. */
+  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used. */
   trackInventory?: InputMaybe<Scalars["Boolean"]>;
   /** Weight of the Product Variant. */
   weight?: InputMaybe<Scalars["WeightScalar"]>;
@@ -21073,6 +21249,8 @@ export type RequestEmailChange = {
  *
  * Triggers the following webhook events:
  * - NOTIFY_USER (async): A notification for password reset.
+ * - ACCOUNT_SET_PASSWORD_REQUESTED (async): Setting a new password for the account is requested.
+ * - STAFF_SET_PASSWORD_REQUESTED (async): Setting a new password for the staff account is requested.
  */
 export type RequestPasswordReset = {
   __typename?: "RequestPasswordReset";
@@ -22793,7 +22971,7 @@ export type Shop = ObjectWithMetadata & {
    * Requires one of the following permissions: MANAGE_SETTINGS.
    */
   staffNotificationRecipients?: Maybe<Array<StaffNotificationRecipient>>;
-  /** Enable inventory tracking. */
+  /** This field is used as a default value for `ProductVariant.trackInventory`. */
   trackInventoryByDefault?: Maybe<Scalars["Boolean"]>;
   /** Returns translated shop fields for the given language code. */
   translation?: Maybe<ShopTranslation>;
@@ -23020,7 +23198,7 @@ export type ShopSettingsInput = {
    * Added in Saleor 3.1.
    */
   reserveStockDurationAuthenticatedUser?: InputMaybe<Scalars["Int"]>;
-  /** Enable inventory tracking. */
+  /** This field is used as a default value for `ProductVariant.trackInventory`. */
   trackInventoryByDefault?: InputMaybe<Scalars["Boolean"]>;
 };
 
@@ -23104,6 +23282,7 @@ export type StaffBulkDelete = {
  * Triggers the following webhook events:
  * - STAFF_CREATED (async): A new staff account was created.
  * - NOTIFY_USER (async): A notification for setting the password.
+ * - STAFF_SET_PASSWORD_REQUESTED (async): Setting a new password for the staff account is requested.
  */
 export type StaffCreate = {
   __typename?: "StaffCreate";
@@ -23281,6 +23460,33 @@ export type StaffNotificationRecipientUpdate = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   shopErrors: Array<ShopError>;
   staffNotificationRecipient?: Maybe<StaffNotificationRecipient>;
+};
+
+/**
+ * Event sent when setting a new password for staff is requested.
+ *
+ * Added in Saleor 3.15.
+ */
+export type StaffSetPasswordRequested = Event & {
+  __typename?: "StaffSetPasswordRequested";
+  /** The channel data. */
+  channel?: Maybe<Channel>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** The URL to redirect the user after he accepts the request. */
+  redirectUrl?: Maybe<Scalars["String"]>;
+  /** Shop data. */
+  shop?: Maybe<Shop>;
+  /** The token required to confirm request. */
+  token?: Maybe<Scalars["String"]>;
+  /** The user the event relates to. */
+  user?: Maybe<User>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
 };
 
 /**
@@ -24246,13 +24452,21 @@ export type Transaction = Node & {
   __typename?: "Transaction";
   /** Total amount of the transaction. */
   amount?: Maybe<Money>;
+  /** Date and time which transaction was created. */
   created: Scalars["DateTime"];
+  /** Error associated with transaction, if any. */
   error?: Maybe<Scalars["String"]>;
+  /** Response returned by payment gateway. */
   gatewayResponse: Scalars["JSONString"];
+  /** ID of the transaction. */
   id: Scalars["ID"];
+  /** Determines if the transaction was successful. */
   isSuccess: Scalars["Boolean"];
+  /** Determines the type of transaction. */
   kind: TransactionKind;
+  /** Determines the payment associated with a transaction. */
   payment: Payment;
+  /** Unique token associated with a transaction. */
   token: Scalars["String"];
 };
 
@@ -24409,6 +24623,7 @@ export type TransactionEvent = Node & {
    * Added in Saleor 3.13.
    */
   amount: Money;
+  /** Date and time at which a transaction event was created. */
   createdAt: Scalars["DateTime"];
   /**
    * User or App that created the transaction event.
@@ -24654,6 +24869,7 @@ export type TransactionItem = Node &
     chargePendingAmount: Money;
     /** Total amount charged for this payment. */
     chargedAmount: Money;
+    /** Date and time at which payment transaction was created. */
     createdAt: Scalars["DateTime"];
     /**
      * User or App that created the transaction.
@@ -24693,6 +24909,7 @@ export type TransactionItem = Node &
      * Added in Saleor 3.3.
      */
     metafields?: Maybe<Scalars["Metadata"]>;
+    /** Date and time at which payment transaction was modified. */
     modifiedAt: Scalars["DateTime"];
     /**
      * Name of the transaction.
@@ -26802,12 +27019,20 @@ export type WebhookEventSync = {
 
 /** Enum determining type of webhook. */
 export type WebhookEventTypeAsyncEnum =
-  /** Account email change is requested. */
+  /** An account email change is requested. */
   | "ACCOUNT_CHANGE_EMAIL_REQUESTED"
   /** An account confirmation is requested. */
   | "ACCOUNT_CONFIRMATION_REQUESTED"
+  /** An account is confirmed. */
+  | "ACCOUNT_CONFIRMED"
+  /** An account is deleted. */
+  | "ACCOUNT_DELETED"
   /** An account delete is requested. */
   | "ACCOUNT_DELETE_REQUESTED"
+  /** An account email was changed */
+  | "ACCOUNT_EMAIL_CHANGED"
+  /** Setting a new password for the account is requested. */
+  | "ACCOUNT_SET_PASSWORD_REQUESTED"
   /** A new address created. */
   | "ADDRESS_CREATED"
   /** An address deleted. */
@@ -26850,6 +27075,8 @@ export type WebhookEventTypeAsyncEnum =
   | "CHANNEL_CREATED"
   /** A channel is deleted. */
   | "CHANNEL_DELETED"
+  /** A channel metadata is updated. */
+  | "CHANNEL_METADATA_UPDATED"
   /** A channel status is changed. */
   | "CHANNEL_STATUS_CHANGED"
   /** A channel is updated. */
@@ -27105,6 +27332,8 @@ export type WebhookEventTypeAsyncEnum =
   | "STAFF_CREATED"
   /** A staff user is deleted. */
   | "STAFF_DELETED"
+  /** Setting a new password for the staff account is requested. */
+  | "STAFF_SET_PASSWORD_REQUESTED"
   /** A staff user is updated. */
   | "STAFF_UPDATED"
   /**
@@ -27150,12 +27379,20 @@ export type WebhookEventTypeAsyncEnum =
 
 /** Enum determining type of webhook. */
 export type WebhookEventTypeEnum =
-  /** Account email change is requested. */
+  /** An account email change is requested. */
   | "ACCOUNT_CHANGE_EMAIL_REQUESTED"
   /** An account confirmation is requested. */
   | "ACCOUNT_CONFIRMATION_REQUESTED"
+  /** An account is confirmed. */
+  | "ACCOUNT_CONFIRMED"
+  /** An account is deleted. */
+  | "ACCOUNT_DELETED"
   /** An account delete is requested. */
   | "ACCOUNT_DELETE_REQUESTED"
+  /** An account email was changed */
+  | "ACCOUNT_EMAIL_CHANGED"
+  /** Setting a new password for the account is requested. */
+  | "ACCOUNT_SET_PASSWORD_REQUESTED"
   /** A new address created. */
   | "ADDRESS_CREATED"
   /** An address deleted. */
@@ -27198,6 +27435,8 @@ export type WebhookEventTypeEnum =
   | "CHANNEL_CREATED"
   /** A channel is deleted. */
   | "CHANNEL_DELETED"
+  /** A channel metadata is updated. */
+  | "CHANNEL_METADATA_UPDATED"
   /** A channel status is changed. */
   | "CHANNEL_STATUS_CHANGED"
   /** A channel is updated. */
@@ -27486,6 +27725,8 @@ export type WebhookEventTypeEnum =
   | "STAFF_CREATED"
   /** A staff user is deleted. */
   | "STAFF_DELETED"
+  /** Setting a new password for the staff account is requested. */
+  | "STAFF_SET_PASSWORD_REQUESTED"
   /** A staff user is updated. */
   | "STAFF_UPDATED"
   /**
@@ -27621,7 +27862,11 @@ export type WebhookEventTypeSyncEnum =
 export type WebhookSampleEventTypeEnum =
   | "ACCOUNT_CHANGE_EMAIL_REQUESTED"
   | "ACCOUNT_CONFIRMATION_REQUESTED"
+  | "ACCOUNT_CONFIRMED"
+  | "ACCOUNT_DELETED"
   | "ACCOUNT_DELETE_REQUESTED"
+  | "ACCOUNT_EMAIL_CHANGED"
+  | "ACCOUNT_SET_PASSWORD_REQUESTED"
   | "ADDRESS_CREATED"
   | "ADDRESS_DELETED"
   | "ADDRESS_UPDATED"
@@ -27640,6 +27885,7 @@ export type WebhookSampleEventTypeEnum =
   | "CATEGORY_UPDATED"
   | "CHANNEL_CREATED"
   | "CHANNEL_DELETED"
+  | "CHANNEL_METADATA_UPDATED"
   | "CHANNEL_STATUS_CHANGED"
   | "CHANNEL_UPDATED"
   | "CHECKOUT_CREATED"
@@ -27727,6 +27973,7 @@ export type WebhookSampleEventTypeEnum =
   | "SHOP_METADATA_UPDATED"
   | "STAFF_CREATED"
   | "STAFF_DELETED"
+  | "STAFF_SET_PASSWORD_REQUESTED"
   | "STAFF_UPDATED"
   | "THUMBNAIL_CREATED"
   | "TRANSACTION_ITEM_METADATA_UPDATED"
@@ -27864,6 +28111,21 @@ export type _Entity =
 export type _Service = {
   __typename?: "_Service";
   sdl?: Maybe<Scalars["String"]>;
+};
+
+export type AddressFragment = {
+  __typename?: "Address";
+  city: string;
+  cityArea: string;
+  companyName: string;
+  countryArea: string;
+  firstName: string;
+  id: string;
+  phone?: string | null;
+  postalCode: string;
+  streetAddress1: string;
+  streetAddress2: string;
+  country: { __typename: "CountryDisplay"; code: string; country: string };
 };
 
 export type AddressDetailsFragment = {
@@ -28468,6 +28730,29 @@ export type SelectedAttributeDetailsFragment = {
       richText?: string | null;
     } | null;
   }>;
+};
+
+export type ShopFragment = {
+  __typename?: "Shop";
+  description?: string | null;
+  headerText?: string | null;
+  name: string;
+  companyAddress?: {
+    __typename?: "Address";
+    city: string;
+    cityArea: string;
+    companyName: string;
+    countryArea: string;
+    firstName: string;
+    id: string;
+    phone?: string | null;
+    postalCode: string;
+    streetAddress1: string;
+    streetAddress2: string;
+    country: { __typename: "CountryDisplay"; code: string; country: string };
+  } | null;
+  domain: { __typename?: "Domain"; host: string };
+  metadata: Array<{ __typename: "MetadataItem"; key: string; value: string }>;
 };
 
 export type AddressDeleteMutationVariables = Exact<{
@@ -30708,6 +30993,34 @@ export type ProductTypePathsQuery = {
   } | null;
 };
 
+export type ShopQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ShopQuery = {
+  __typename?: "Query";
+  shop: {
+    __typename?: "Shop";
+    description?: string | null;
+    headerText?: string | null;
+    name: string;
+    companyAddress?: {
+      __typename?: "Address";
+      city: string;
+      cityArea: string;
+      companyName: string;
+      countryArea: string;
+      firstName: string;
+      id: string;
+      phone?: string | null;
+      postalCode: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      country: { __typename: "CountryDisplay"; code: string; country: string };
+    } | null;
+    domain: { __typename?: "Domain"; host: string };
+    metadata: Array<{ __typename: "MetadataItem"; key: string; value: string }>;
+  };
+};
+
 export type UserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserQuery = {
@@ -31312,6 +31625,44 @@ export const ProductDetailsFragmentDoc = gql`
   ${PriceFragmentDoc}
   ${ProductMediaFragmentDoc}
   ${ImageFragmentDoc}
+`;
+export const AddressFragmentDoc = gql`
+  fragment Address on Address {
+    city
+    cityArea
+    companyName
+    country {
+      __typename
+      code
+      country
+    }
+    countryArea
+    firstName
+    id
+    phone
+    postalCode
+    streetAddress1
+    streetAddress2
+  }
+`;
+export const ShopFragmentDoc = gql`
+  fragment Shop on Shop {
+    companyAddress {
+      ...Address
+    }
+    description
+    domain {
+      host
+    }
+    headerText
+    name
+    metadata {
+      __typename
+      key
+      value
+    }
+  }
+  ${AddressFragmentDoc}
 `;
 export const AddressDeleteDocument = gql`
   mutation AddressDelete($id: ID!) {
@@ -33804,6 +34155,43 @@ export type ProductTypePathsQueryResult = Apollo.QueryResult<
   ProductTypePathsQuery,
   ProductTypePathsQueryVariables
 >;
+export const ShopDocument = gql`
+  query Shop {
+    shop {
+      ...Shop
+    }
+  }
+  ${ShopFragmentDoc}
+`;
+
+/**
+ * __useShopQuery__
+ *
+ * To run a query within a React component, call `useShopQuery` and pass it any options that fit your needs.
+ * When your component renders, `useShopQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useShopQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useShopQuery(baseOptions?: Apollo.QueryHookOptions<ShopQuery, ShopQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ShopQuery, ShopQueryVariables>(ShopDocument, options);
+}
+export function useShopLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ShopQuery, ShopQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ShopQuery, ShopQueryVariables>(ShopDocument, options);
+}
+export type ShopQueryHookResult = ReturnType<typeof useShopQuery>;
+export type ShopLazyQueryHookResult = ReturnType<typeof useShopLazyQuery>;
+export type ShopQueryResult = Apollo.QueryResult<ShopQuery, ShopQueryVariables>;
 export const UserDocument = gql`
   query User {
     user: me {
@@ -34002,6 +34390,29 @@ export type AccountConfirmationRequestedFieldPolicy = {
   user?: FieldPolicy<any> | FieldReadFunction<any>;
   version?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type AccountConfirmedKeySpecifier = (
+  | "channel"
+  | "issuedAt"
+  | "issuingPrincipal"
+  | "recipient"
+  | "redirectUrl"
+  | "shop"
+  | "token"
+  | "user"
+  | "version"
+  | AccountConfirmedKeySpecifier
+)[];
+export type AccountConfirmedFieldPolicy = {
+  channel?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuedAt?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>;
+  recipient?: FieldPolicy<any> | FieldReadFunction<any>;
+  redirectUrl?: FieldPolicy<any> | FieldReadFunction<any>;
+  shop?: FieldPolicy<any> | FieldReadFunction<any>;
+  token?: FieldPolicy<any> | FieldReadFunction<any>;
+  user?: FieldPolicy<any> | FieldReadFunction<any>;
+  version?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type AccountDeleteKeySpecifier = (
   | "accountErrors"
   | "errors"
@@ -34029,6 +34440,54 @@ export type AccountDeleteRequestedFieldPolicy = {
   channel?: FieldPolicy<any> | FieldReadFunction<any>;
   issuedAt?: FieldPolicy<any> | FieldReadFunction<any>;
   issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>;
+  recipient?: FieldPolicy<any> | FieldReadFunction<any>;
+  redirectUrl?: FieldPolicy<any> | FieldReadFunction<any>;
+  shop?: FieldPolicy<any> | FieldReadFunction<any>;
+  token?: FieldPolicy<any> | FieldReadFunction<any>;
+  user?: FieldPolicy<any> | FieldReadFunction<any>;
+  version?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AccountDeletedKeySpecifier = (
+  | "channel"
+  | "issuedAt"
+  | "issuingPrincipal"
+  | "recipient"
+  | "redirectUrl"
+  | "shop"
+  | "token"
+  | "user"
+  | "version"
+  | AccountDeletedKeySpecifier
+)[];
+export type AccountDeletedFieldPolicy = {
+  channel?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuedAt?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>;
+  recipient?: FieldPolicy<any> | FieldReadFunction<any>;
+  redirectUrl?: FieldPolicy<any> | FieldReadFunction<any>;
+  shop?: FieldPolicy<any> | FieldReadFunction<any>;
+  token?: FieldPolicy<any> | FieldReadFunction<any>;
+  user?: FieldPolicy<any> | FieldReadFunction<any>;
+  version?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AccountEmailChangedKeySpecifier = (
+  | "channel"
+  | "issuedAt"
+  | "issuingPrincipal"
+  | "newEmail"
+  | "recipient"
+  | "redirectUrl"
+  | "shop"
+  | "token"
+  | "user"
+  | "version"
+  | AccountEmailChangedKeySpecifier
+)[];
+export type AccountEmailChangedFieldPolicy = {
+  channel?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuedAt?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>;
+  newEmail?: FieldPolicy<any> | FieldReadFunction<any>;
   recipient?: FieldPolicy<any> | FieldReadFunction<any>;
   redirectUrl?: FieldPolicy<any> | FieldReadFunction<any>;
   shop?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -34081,6 +34540,29 @@ export type AccountSetDefaultAddressFieldPolicy = {
   accountErrors?: FieldPolicy<any> | FieldReadFunction<any>;
   errors?: FieldPolicy<any> | FieldReadFunction<any>;
   user?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AccountSetPasswordRequestedKeySpecifier = (
+  | "channel"
+  | "issuedAt"
+  | "issuingPrincipal"
+  | "recipient"
+  | "redirectUrl"
+  | "shop"
+  | "token"
+  | "user"
+  | "version"
+  | AccountSetPasswordRequestedKeySpecifier
+)[];
+export type AccountSetPasswordRequestedFieldPolicy = {
+  channel?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuedAt?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>;
+  recipient?: FieldPolicy<any> | FieldReadFunction<any>;
+  redirectUrl?: FieldPolicy<any> | FieldReadFunction<any>;
+  shop?: FieldPolicy<any> | FieldReadFunction<any>;
+  token?: FieldPolicy<any> | FieldReadFunction<any>;
+  user?: FieldPolicy<any> | FieldReadFunction<any>;
+  version?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type AccountUpdateKeySpecifier = (
   | "accountErrors"
@@ -35584,6 +36066,21 @@ export type ChannelErrorFieldPolicy = {
   message?: FieldPolicy<any> | FieldReadFunction<any>;
   shippingZones?: FieldPolicy<any> | FieldReadFunction<any>;
   warehouses?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type ChannelMetadataUpdatedKeySpecifier = (
+  | "channel"
+  | "issuedAt"
+  | "issuingPrincipal"
+  | "recipient"
+  | "version"
+  | ChannelMetadataUpdatedKeySpecifier
+)[];
+export type ChannelMetadataUpdatedFieldPolicy = {
+  channel?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuedAt?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>;
+  recipient?: FieldPolicy<any> | FieldReadFunction<any>;
+  version?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type ChannelReorderWarehousesKeySpecifier = (
   | "channel"
@@ -43622,6 +44119,29 @@ export type StaffNotificationRecipientUpdateFieldPolicy = {
   shopErrors?: FieldPolicy<any> | FieldReadFunction<any>;
   staffNotificationRecipient?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type StaffSetPasswordRequestedKeySpecifier = (
+  | "channel"
+  | "issuedAt"
+  | "issuingPrincipal"
+  | "recipient"
+  | "redirectUrl"
+  | "shop"
+  | "token"
+  | "user"
+  | "version"
+  | StaffSetPasswordRequestedKeySpecifier
+)[];
+export type StaffSetPasswordRequestedFieldPolicy = {
+  channel?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuedAt?: FieldPolicy<any> | FieldReadFunction<any>;
+  issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>;
+  recipient?: FieldPolicy<any> | FieldReadFunction<any>;
+  redirectUrl?: FieldPolicy<any> | FieldReadFunction<any>;
+  shop?: FieldPolicy<any> | FieldReadFunction<any>;
+  token?: FieldPolicy<any> | FieldReadFunction<any>;
+  user?: FieldPolicy<any> | FieldReadFunction<any>;
+  version?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type StaffUpdateKeySpecifier = (
   | "errors"
   | "staffErrors"
@@ -45379,6 +45899,13 @@ export type StrictTypedTypePolicies = {
       | (() => undefined | AccountConfirmationRequestedKeySpecifier);
     fields?: AccountConfirmationRequestedFieldPolicy;
   };
+  AccountConfirmed?: Omit<TypePolicy, "fields" | "keyFields"> & {
+    keyFields?:
+      | false
+      | AccountConfirmedKeySpecifier
+      | (() => undefined | AccountConfirmedKeySpecifier);
+    fields?: AccountConfirmedFieldPolicy;
+  };
   AccountDelete?: Omit<TypePolicy, "fields" | "keyFields"> & {
     keyFields?: false | AccountDeleteKeySpecifier | (() => undefined | AccountDeleteKeySpecifier);
     fields?: AccountDeleteFieldPolicy;
@@ -45389,6 +45916,17 @@ export type StrictTypedTypePolicies = {
       | AccountDeleteRequestedKeySpecifier
       | (() => undefined | AccountDeleteRequestedKeySpecifier);
     fields?: AccountDeleteRequestedFieldPolicy;
+  };
+  AccountDeleted?: Omit<TypePolicy, "fields" | "keyFields"> & {
+    keyFields?: false | AccountDeletedKeySpecifier | (() => undefined | AccountDeletedKeySpecifier);
+    fields?: AccountDeletedFieldPolicy;
+  };
+  AccountEmailChanged?: Omit<TypePolicy, "fields" | "keyFields"> & {
+    keyFields?:
+      | false
+      | AccountEmailChangedKeySpecifier
+      | (() => undefined | AccountEmailChangedKeySpecifier);
+    fields?: AccountEmailChangedFieldPolicy;
   };
   AccountError?: Omit<TypePolicy, "fields" | "keyFields"> & {
     keyFields?: false | AccountErrorKeySpecifier | (() => undefined | AccountErrorKeySpecifier);
@@ -45414,6 +45952,13 @@ export type StrictTypedTypePolicies = {
       | AccountSetDefaultAddressKeySpecifier
       | (() => undefined | AccountSetDefaultAddressKeySpecifier);
     fields?: AccountSetDefaultAddressFieldPolicy;
+  };
+  AccountSetPasswordRequested?: Omit<TypePolicy, "fields" | "keyFields"> & {
+    keyFields?:
+      | false
+      | AccountSetPasswordRequestedKeySpecifier
+      | (() => undefined | AccountSetPasswordRequestedKeySpecifier);
+    fields?: AccountSetPasswordRequestedFieldPolicy;
   };
   AccountUpdate?: Omit<TypePolicy, "fields" | "keyFields"> & {
     keyFields?: false | AccountUpdateKeySpecifier | (() => undefined | AccountUpdateKeySpecifier);
@@ -46030,6 +46575,13 @@ export type StrictTypedTypePolicies = {
   ChannelError?: Omit<TypePolicy, "fields" | "keyFields"> & {
     keyFields?: false | ChannelErrorKeySpecifier | (() => undefined | ChannelErrorKeySpecifier);
     fields?: ChannelErrorFieldPolicy;
+  };
+  ChannelMetadataUpdated?: Omit<TypePolicy, "fields" | "keyFields"> & {
+    keyFields?:
+      | false
+      | ChannelMetadataUpdatedKeySpecifier
+      | (() => undefined | ChannelMetadataUpdatedKeySpecifier);
+    fields?: ChannelMetadataUpdatedFieldPolicy;
   };
   ChannelReorderWarehouses?: Omit<TypePolicy, "fields" | "keyFields"> & {
     keyFields?:
@@ -49090,6 +49642,13 @@ export type StrictTypedTypePolicies = {
       | StaffNotificationRecipientUpdateKeySpecifier
       | (() => undefined | StaffNotificationRecipientUpdateKeySpecifier);
     fields?: StaffNotificationRecipientUpdateFieldPolicy;
+  };
+  StaffSetPasswordRequested?: Omit<TypePolicy, "fields" | "keyFields"> & {
+    keyFields?:
+      | false
+      | StaffSetPasswordRequestedKeySpecifier
+      | (() => undefined | StaffSetPasswordRequestedKeySpecifier);
+    fields?: StaffSetPasswordRequestedFieldPolicy;
   };
   StaffUpdate?: Omit<TypePolicy, "fields" | "keyFields"> & {
     keyFields?: false | StaffUpdateKeySpecifier | (() => undefined | StaffUpdateKeySpecifier);

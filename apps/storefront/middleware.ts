@@ -3,12 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { GEOLOCATION } from "@/lib/const";
 import { CHANNELS, DEFAULT_CHANNEL, DEFAULT_LOCALE, LOCALES } from "@/lib/regions";
+import { getSubdomain } from "@/lib/subdomain";
 
 export function LocaleRedirectionMiddleware({
   nextUrl,
   headers,
   geo,
 }: NextRequest): NextMiddlewareResult | Promise<NextMiddlewareResult> {
+  getSubdomain(headers.get("host")!);
   if (nextUrl.pathname !== "/") {
     // redirect should only be applied on homepage, without any region/locale chosen
     return null;
@@ -37,6 +39,7 @@ export function LocaleRedirectionMiddleware({
 
   const url = nextUrl.clone();
   url.pathname = `/${channel}/${locale}`;
+
   return NextResponse.redirect(url);
 }
 

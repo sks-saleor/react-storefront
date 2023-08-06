@@ -3,8 +3,7 @@ import Link from "next/link";
 import { HTMLAttributes } from "react";
 
 import { getLinkPath } from "@/lib/menus";
-import { usePaths } from "@/lib/paths";
-import { useFooterMenuQuery } from "@/saleor/api";
+import { ShopFragment, useFooterMenuQuery } from "@/saleor/api";
 
 import { Box } from "../Box";
 import { useRegions } from "../RegionsProvider";
@@ -17,10 +16,8 @@ export type FooterProps = HTMLAttributes<HTMLElement>;
 // @todo remove this when the issue is fixed.
 const fixMenuItemLocalhostUrl = (url: string) => url.replace(/^https?:\/\/localhost:8000\//, "/");
 
-export function Footer({ className, ...rest }: FooterProps) {
-  const paths = usePaths();
+export function Footer({ shop, className, ...rest }: FooterProps & { shop?: ShopFragment }) {
   const { query, currentChannel, currentLocale } = useRegions();
-
   const { data, error } = useFooterMenuQuery({ variables: { ...query } });
 
   if (error) {
@@ -28,13 +25,28 @@ export function Footer({ className, ...rest }: FooterProps) {
   }
 
   const menu = data?.menu?.items || [];
-  // console.log("menu:: ", menu);
+
+  const contactInfo = () => {
+    if (!shop) return "";
+    const address = shop.companyAddress;
+    return `${address?.streetAddress1 || address?.streetAddress2}`;
+  };
+
   return (
     <>
       <footer className={clsx(styles.footer, className)} {...rest}>
         <Box className={styles["footer-inner"]}>
           <div className="flex mb-14 sm:mb-0">
             <div className="grid grid-cols-4">
+              <div className="sm:ml-14">
+                <h3 className={styles["menu-heading"]}>Contact Info</h3>
+                <div className={styles.menu}>
+                  <p className={styles["menu-link"]}>{contactInfo()}</p>
+                  <p className={`${styles["menu-link"]} pt-1`}>
+                    Tel: {shop?.companyAddress?.phone}
+                  </p>
+                </div>
+              </div>
               {menu.map((item) => (
                 <div className="sm:ml-14" key={item?.id}>
                   {item?.url ? (
@@ -94,7 +106,7 @@ export function Footer({ className, ...rest }: FooterProps) {
           </div>
         </Box>
         <div className="border-t-[0.5px] border-[#282828] py-4 lg:px-[100px] md:px-[16px]">
-          <p className="text-[#ADADAD] text-sm">Copyright 2023 - Tan Brothers Auto Co., Ltd.</p>
+          <p className="text-[#ADADAD] text-sm">Copyright 2023 - {shop?.name}.</p>
         </div>
       </footer>
     </>

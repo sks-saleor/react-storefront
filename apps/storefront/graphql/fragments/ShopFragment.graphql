@@ -1,0 +1,16 @@
+fragment Shop on Shop {
+  companyAddress {
+    ...Address
+  }
+  description
+  domain {
+    host
+  }
+  headerText
+  name
+  metadata {
+    __typename
+    key
+    value
+  }
+}

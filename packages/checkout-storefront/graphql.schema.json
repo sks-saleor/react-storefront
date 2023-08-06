@@ -523,8 +523,133 @@
       },
       {
         "kind": "OBJECT",
+        "name": "AccountConfirmed",
+        "description": "Event sent when account is confirmed.\n\nAdded in Saleor 3.15.",
+        "fields": [
+          {
+            "name": "channel",
+            "description": "The channel data.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Channel",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuedAt",
+            "description": "Time of the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuingPrincipal",
+            "description": "The user or application that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "UNION",
+              "name": "IssuingPrincipal",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "recipient",
+            "description": "The application receiving the webhook.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "App",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "redirectUrl",
+            "description": "The URL to redirect the user after he accepts the request.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "shop",
+            "description": "Shop data.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Shop",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "token",
+            "description": "The token required to confirm request.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "user",
+            "description": "The user the event relates to.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "version",
+            "description": "Saleor version that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Event",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "AccountDelete",
-        "description": "Remove user account. \n\nRequires one of the following permissions: AUTHENTICATED_USER.",
+        "description": "Remove user account. \n\nRequires one of the following permissions: AUTHENTICATED_USER.\n\nTriggers the following webhook events:\n- ACCOUNT_DELETED (async): Account was deleted.",
         "fields": [
           {
             "name": "accountErrors",
@@ -628,6 +753,268 @@
             "type": {
               "kind": "UNION",
               "name": "IssuingPrincipal",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "recipient",
+            "description": "The application receiving the webhook.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "App",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "redirectUrl",
+            "description": "The URL to redirect the user after he accepts the request.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "shop",
+            "description": "Shop data.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Shop",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "token",
+            "description": "The token required to confirm request.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "user",
+            "description": "The user the event relates to.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "version",
+            "description": "Saleor version that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Event",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AccountDeleted",
+        "description": "Event sent when account is deleted.\n\nAdded in Saleor 3.15.",
+        "fields": [
+          {
+            "name": "channel",
+            "description": "The channel data.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Channel",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuedAt",
+            "description": "Time of the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuingPrincipal",
+            "description": "The user or application that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "UNION",
+              "name": "IssuingPrincipal",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "recipient",
+            "description": "The application receiving the webhook.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "App",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "redirectUrl",
+            "description": "The URL to redirect the user after he accepts the request.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "shop",
+            "description": "Shop data.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Shop",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "token",
+            "description": "The token required to confirm request.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "user",
+            "description": "The user the event relates to.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "version",
+            "description": "Saleor version that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Event",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AccountEmailChanged",
+        "description": "Event sent when account email is changed.\n\nAdded in Saleor 3.15.",
+        "fields": [
+          {
+            "name": "channel",
+            "description": "The channel data.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Channel",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuedAt",
+            "description": "Time of the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuingPrincipal",
+            "description": "The user or application that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "UNION",
+              "name": "IssuingPrincipal",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "newEmail",
+            "description": "The new email address.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1419,6 +1806,131 @@
         ],
         "inputFields": null,
         "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AccountSetPasswordRequested",
+        "description": "Event sent when setting a new password is requested.\n\nAdded in Saleor 3.15.",
+        "fields": [
+          {
+            "name": "channel",
+            "description": "The channel data.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Channel",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuedAt",
+            "description": "Time of the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuingPrincipal",
+            "description": "The user or application that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "UNION",
+              "name": "IssuingPrincipal",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "recipient",
+            "description": "The application receiving the webhook.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "App",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "redirectUrl",
+            "description": "The URL to redirect the user after he accepts the request.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "shop",
+            "description": "Shop data.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Shop",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "token",
+            "description": "The token required to confirm request.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "user",
+            "description": "The user the event relates to.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "version",
+            "description": "Saleor version that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Event",
+            "ofType": null
+          }
+        ],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -8886,6 +9398,18 @@
             "deprecationReason": null
           },
           {
+            "name": "inProductType",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "isVariantOnly",
             "description": null,
             "type": {
@@ -12116,6 +12640,18 @@
           },
           {
             "name": "inCollection",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inProductType",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -16184,6 +16720,83 @@
       },
       {
         "kind": "OBJECT",
+        "name": "ChannelMetadataUpdated",
+        "description": "Event sent when channel metadata is updated.\n\nAdded in Saleor 3.15.",
+        "fields": [
+          {
+            "name": "channel",
+            "description": "The channel the event relates to.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Channel",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuedAt",
+            "description": "Time of the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuingPrincipal",
+            "description": "The user or application that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "UNION",
+              "name": "IssuingPrincipal",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "recipient",
+            "description": "The application receiving the webhook.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "App",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "version",
+            "description": "Saleor version that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Event",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "ChannelReorderWarehouses",
         "description": "Reorder the warehouses of a channel.\n\nAdded in Saleor 3.7. \n\nRequires one of the following permissions: MANAGE_CHANNELS.",
         "fields": [
@@ -16309,7 +16922,7 @@
       {
         "kind": "OBJECT",
         "name": "ChannelUpdate",
-        "description": "Update a channel.\n\nRequires one of the following permissions: MANAGE_CHANNELS.\nRequires one of the following permissions when updating only orderSettings field: MANAGE_CHANNELS, MANAGE_ORDERS.\n\nTriggers the following webhook events:\n- CHANNEL_UPDATED (async): A channel was updated.",
+        "description": "Update a channel.\n\nRequires one of the following permissions: MANAGE_CHANNELS.\nRequires one of the following permissions when updating only orderSettings field: MANAGE_CHANNELS, MANAGE_ORDERS.\n\nTriggers the following webhook events:\n- CHANNEL_UPDATED (async): A channel was updated.\n- CHANNEL_METADATA_UPDATED (async): Optionally triggered when public or private metadata is updated.",
         "fields": [
           {
             "name": "channel",
@@ -23810,7 +24423,7 @@
       {
         "kind": "OBJECT",
         "name": "ConfirmAccount",
-        "description": "Confirm user account with token sent by email during registration.",
+        "description": "Confirm user account with token sent by email during registration.\n\nTriggers the following webhook events:\n- ACCOUNT_CONFIRMED (async): Account was confirmed.",
         "fields": [
           {
             "name": "accountErrors",
@@ -23881,7 +24494,7 @@
       {
         "kind": "OBJECT",
         "name": "ConfirmEmailChange",
-        "description": "Confirm the email change of the logged-in user. \n\nRequires one of the following permissions: AUTHENTICATED_USER.\n\nTriggers the following webhook events:\n- CUSTOMER_UPDATED (async): A customer account was updated.\n- NOTIFY_USER (async): A notification that account email change was confirmed.",
+        "description": "Confirm the email change of the logged-in user. \n\nRequires one of the following permissions: AUTHENTICATED_USER.\n\nTriggers the following webhook events:\n- CUSTOMER_UPDATED (async): A customer account was updated.\n- NOTIFY_USER (async): A notification that account email change was confirmed.\n- ACCOUNT_EMAIL_CHANGED (async): An account email was changed.",
         "fields": [
           {
             "name": "accountErrors",
@@ -26163,7 +26776,7 @@
       {
         "kind": "OBJECT",
         "name": "CustomerCreate",
-        "description": "Creates a new customer. \n\nRequires one of the following permissions: MANAGE_USERS.\n\nTriggers the following webhook events:\n- CUSTOMER_CREATED (async): A new customer account was created.\n- CUSTOMER_METADATA_UPDATED (async): Optionally called when customer's metadata was updated.\n- NOTIFY_USER (async): A notification for setting the password.",
+        "description": "Creates a new customer. \n\nRequires one of the following permissions: MANAGE_USERS.\n\nTriggers the following webhook events:\n- CUSTOMER_CREATED (async): A new customer account was created.\n- CUSTOMER_METADATA_UPDATED (async): Optionally called when customer's metadata was updated.\n- NOTIFY_USER (async): A notification for setting the password.\n- ACCOUNT_SET_PASSWORD_REQUESTED (async): Setting a new password for the account is requested.",
         "fields": [
           {
             "name": "accountErrors",
@@ -30018,7 +30631,27 @@
           },
           {
             "kind": "OBJECT",
+            "name": "AccountConfirmed",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "AccountDeleteRequested",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "AccountDeleted",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "AccountEmailChanged",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "AccountSetPasswordRequested",
             "ofType": null
           },
           {
@@ -30114,6 +30747,11 @@
           {
             "kind": "OBJECT",
             "name": "ChannelDeleted",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ChannelMetadataUpdated",
             "ofType": null
           },
           {
@@ -30589,6 +31227,11 @@
           {
             "kind": "OBJECT",
             "name": "StaffDeleted",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "StaffSetPasswordRequested",
             "ofType": null
           },
           {
@@ -44178,7 +44821,7 @@
           },
           {
             "name": "accountDelete",
-            "description": "Remove user account. \n\nRequires one of the following permissions: AUTHENTICATED_USER.",
+            "description": "Remove user account. \n\nRequires one of the following permissions: AUTHENTICATED_USER.\n\nTriggers the following webhook events:\n- ACCOUNT_DELETED (async): Account was deleted.",
             "args": [
               {
                 "name": "token",
@@ -46045,7 +46688,7 @@
           },
           {
             "name": "channelUpdate",
-            "description": "Update a channel.\n\nRequires one of the following permissions: MANAGE_CHANNELS.\nRequires one of the following permissions when updating only orderSettings field: MANAGE_CHANNELS, MANAGE_ORDERS.\n\nTriggers the following webhook events:\n- CHANNEL_UPDATED (async): A channel was updated.",
+            "description": "Update a channel.\n\nRequires one of the following permissions: MANAGE_CHANNELS.\nRequires one of the following permissions when updating only orderSettings field: MANAGE_CHANNELS, MANAGE_ORDERS.\n\nTriggers the following webhook events:\n- CHANNEL_UPDATED (async): A channel was updated.\n- CHANNEL_METADATA_UPDATED (async): Optionally triggered when public or private metadata is updated.",
             "args": [
               {
                 "name": "id",
@@ -47633,7 +48276,7 @@
           },
           {
             "name": "confirmAccount",
-            "description": "Confirm user account with token sent by email during registration.",
+            "description": "Confirm user account with token sent by email during registration.\n\nTriggers the following webhook events:\n- ACCOUNT_CONFIRMED (async): Account was confirmed.",
             "args": [
               {
                 "name": "email",
@@ -47678,7 +48321,7 @@
           },
           {
             "name": "confirmEmailChange",
-            "description": "Confirm the email change of the logged-in user. \n\nRequires one of the following permissions: AUTHENTICATED_USER.\n\nTriggers the following webhook events:\n- CUSTOMER_UPDATED (async): A customer account was updated.\n- NOTIFY_USER (async): A notification that account email change was confirmed.",
+            "description": "Confirm the email change of the logged-in user. \n\nRequires one of the following permissions: AUTHENTICATED_USER.\n\nTriggers the following webhook events:\n- CUSTOMER_UPDATED (async): A customer account was updated.\n- NOTIFY_USER (async): A notification that account email change was confirmed.\n- ACCOUNT_EMAIL_CHANGED (async): An account email was changed.",
             "args": [
               {
                 "name": "channel",
@@ -47834,7 +48477,7 @@
           },
           {
             "name": "customerCreate",
-            "description": "Creates a new customer. \n\nRequires one of the following permissions: MANAGE_USERS.\n\nTriggers the following webhook events:\n- CUSTOMER_CREATED (async): A new customer account was created.\n- CUSTOMER_METADATA_UPDATED (async): Optionally called when customer's metadata was updated.\n- NOTIFY_USER (async): A notification for setting the password.",
+            "description": "Creates a new customer. \n\nRequires one of the following permissions: MANAGE_USERS.\n\nTriggers the following webhook events:\n- CUSTOMER_CREATED (async): A new customer account was created.\n- CUSTOMER_METADATA_UPDATED (async): Optionally called when customer's metadata was updated.\n- NOTIFY_USER (async): A notification for setting the password.\n- ACCOUNT_SET_PASSWORD_REQUESTED (async): Setting a new password for the account is requested.",
             "args": [
               {
                 "name": "input",
@@ -54227,7 +54870,7 @@
           },
           {
             "name": "requestPasswordReset",
-            "description": "Sends an email with the account password modification link.\n\nTriggers the following webhook events:\n- NOTIFY_USER (async): A notification for password reset.",
+            "description": "Sends an email with the account password modification link.\n\nTriggers the following webhook events:\n- NOTIFY_USER (async): A notification for password reset.\n- ACCOUNT_SET_PASSWORD_REQUESTED (async): Setting a new password for the account is requested.\n- STAFF_SET_PASSWORD_REQUESTED (async): Setting a new password for the staff account is requested.",
             "args": [
               {
                 "name": "channel",
@@ -55383,7 +56026,7 @@
           },
           {
             "name": "staffCreate",
-            "description": "Creates a new staff user. Apps are not allowed to perform this mutation. \n\nRequires one of the following permissions: MANAGE_STAFF.\n\nTriggers the following webhook events:\n- STAFF_CREATED (async): A new staff account was created.\n- NOTIFY_USER (async): A notification for setting the password.",
+            "description": "Creates a new staff user. Apps are not allowed to perform this mutation. \n\nRequires one of the following permissions: MANAGE_STAFF.\n\nTriggers the following webhook events:\n- STAFF_CREATED (async): A new staff account was created.\n- NOTIFY_USER (async): A notification for setting the password.\n- STAFF_SET_PASSWORD_REQUESTED (async): Setting a new password for the staff account is requested.",
             "args": [
               {
                 "name": "input",
@@ -69465,7 +70108,7 @@
           },
           {
             "name": "created",
-            "description": null,
+            "description": "Date and time at which page was created.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -69481,7 +70124,7 @@
           },
           {
             "name": "id",
-            "description": null,
+            "description": "ID of the page.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -69497,7 +70140,7 @@
           },
           {
             "name": "isPublished",
-            "description": null,
+            "description": "Determines if the page is published.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -69599,7 +70242,7 @@
           },
           {
             "name": "pageType",
-            "description": null,
+            "description": "Determines the type of page",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -69725,7 +70368,7 @@
           },
           {
             "name": "seoDescription",
-            "description": null,
+            "description": "Description of the page for SEO.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -69737,7 +70380,7 @@
           },
           {
             "name": "seoTitle",
-            "description": null,
+            "description": "Title of the page for SEO.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -69749,7 +70392,7 @@
           },
           {
             "name": "slug",
-            "description": null,
+            "description": "Slug of the page.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -69765,7 +70408,7 @@
           },
           {
             "name": "title",
-            "description": null,
+            "description": "Title of the page.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -71771,7 +72414,7 @@
           },
           {
             "name": "id",
-            "description": null,
+            "description": "ID of the page type.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -71873,7 +72516,7 @@
           },
           {
             "name": "name",
-            "description": null,
+            "description": "Name of the page type.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -71975,7 +72618,7 @@
           },
           {
             "name": "slug",
-            "description": null,
+            "description": "Slug of the page type.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -73243,7 +73886,7 @@
           },
           {
             "name": "checkout",
-            "description": null,
+            "description": "Checkout associated with a payment.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -73255,7 +73898,7 @@
           },
           {
             "name": "created",
-            "description": null,
+            "description": "Date and time at which payment was created.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -73295,7 +73938,7 @@
           },
           {
             "name": "gateway",
-            "description": null,
+            "description": "Payment gateway used for payment.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -73311,7 +73954,7 @@
           },
           {
             "name": "id",
-            "description": null,
+            "description": "ID of the payment.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -73327,7 +73970,7 @@
           },
           {
             "name": "isActive",
-            "description": null,
+            "description": "Determines if the payment is active or not.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -73429,7 +74072,7 @@
           },
           {
             "name": "modified",
-            "description": null,
+            "description": "Date and time at which payment was modified.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -73445,7 +74088,7 @@
           },
           {
             "name": "order",
-            "description": null,
+            "description": "Order associated with a payment.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -73457,7 +74100,7 @@
           },
           {
             "name": "paymentMethodType",
-            "description": null,
+            "description": "Type of method used for payment.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -73559,7 +74202,7 @@
           },
           {
             "name": "token",
-            "description": null,
+            "description": "Unique token associated with a payment.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -74731,7 +75374,7 @@
           },
           {
             "name": "gatewayConfigs",
-            "description": null,
+            "description": "List of payment gateway configurations.",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -75010,7 +75653,7 @@
           },
           {
             "name": "initializedPayment",
-            "description": null,
+            "description": "Payment that was initialized.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -86418,7 +87061,7 @@
           },
           {
             "name": "trackInventory",
-            "description": "Whether the inventory of the variant is tracked.",
+            "description": "Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -86903,7 +87546,7 @@
           },
           {
             "name": "trackInventory",
-            "description": "Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item.",
+            "description": "Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used.",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -87793,7 +88436,7 @@
           },
           {
             "name": "trackInventory",
-            "description": "Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item.",
+            "description": "Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used.",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -88471,7 +89114,7 @@
           },
           {
             "name": "trackInventory",
-            "description": "Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item.",
+            "description": "Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used.",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -88964,7 +89607,7 @@
           },
           {
             "name": "trackInventory",
-            "description": "Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item.",
+            "description": "Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used.",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -95928,7 +96571,7 @@
       {
         "kind": "OBJECT",
         "name": "RequestPasswordReset",
-        "description": "Sends an email with the account password modification link.\n\nTriggers the following webhook events:\n- NOTIFY_USER (async): A notification for password reset.",
+        "description": "Sends an email with the account password modification link.\n\nTriggers the following webhook events:\n- NOTIFY_USER (async): A notification for password reset.\n- ACCOUNT_SET_PASSWORD_REQUESTED (async): Setting a new password for the account is requested.\n- STAFF_SET_PASSWORD_REQUESTED (async): Setting a new password for the staff account is requested.",
         "fields": [
           {
             "name": "accountErrors",
@@ -103745,7 +104388,7 @@
           },
           {
             "name": "trackInventoryByDefault",
-            "description": "Enable inventory tracking.",
+            "description": "This field is used as a default value for `ProductVariant.trackInventory`.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -104482,7 +105125,7 @@
           },
           {
             "name": "trackInventoryByDefault",
-            "description": "Enable inventory tracking.",
+            "description": "This field is used as a default value for `ProductVariant.trackInventory`.",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -104868,7 +105511,7 @@
       {
         "kind": "OBJECT",
         "name": "StaffCreate",
-        "description": "Creates a new staff user. Apps are not allowed to perform this mutation. \n\nRequires one of the following permissions: MANAGE_STAFF.\n\nTriggers the following webhook events:\n- STAFF_CREATED (async): A new staff account was created.\n- NOTIFY_USER (async): A notification for setting the password.",
+        "description": "Creates a new staff user. Apps are not allowed to perform this mutation. \n\nRequires one of the following permissions: MANAGE_STAFF.\n\nTriggers the following webhook events:\n- STAFF_CREATED (async): A new staff account was created.\n- NOTIFY_USER (async): A notification for setting the password.\n- STAFF_SET_PASSWORD_REQUESTED (async): Setting a new password for the staff account is requested.",
         "fields": [
           {
             "name": "errors",
@@ -105776,6 +106419,131 @@
         ],
         "inputFields": null,
         "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "StaffSetPasswordRequested",
+        "description": "Event sent when setting a new password for staff is requested.\n\nAdded in Saleor 3.15.",
+        "fields": [
+          {
+            "name": "channel",
+            "description": "The channel data.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Channel",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuedAt",
+            "description": "Time of the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issuingPrincipal",
+            "description": "The user or application that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "UNION",
+              "name": "IssuingPrincipal",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "recipient",
+            "description": "The application receiving the webhook.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "App",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "redirectUrl",
+            "description": "The URL to redirect the user after he accepts the request.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "shop",
+            "description": "Shop data.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Shop",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "token",
+            "description": "The token required to confirm request.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "user",
+            "description": "The user the event relates to.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "version",
+            "description": "Saleor version that triggered the event.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Event",
+            "ofType": null
+          }
+        ],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -110382,7 +111150,7 @@
           },
           {
             "name": "created",
-            "description": null,
+            "description": "Date and time which transaction was created.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -110398,7 +111166,7 @@
           },
           {
             "name": "error",
-            "description": null,
+            "description": "Error associated with transaction, if any.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -110410,7 +111178,7 @@
           },
           {
             "name": "gatewayResponse",
-            "description": null,
+            "description": "Response returned by payment gateway.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -110426,7 +111194,7 @@
           },
           {
             "name": "id",
-            "description": null,
+            "description": "ID of the transaction.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -110442,7 +111210,7 @@
           },
           {
             "name": "isSuccess",
-            "description": null,
+            "description": "Determines if the transaction was successful.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -110458,7 +111226,7 @@
           },
           {
             "name": "kind",
-            "description": null,
+            "description": "Determines the type of transaction.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -110474,7 +111242,7 @@
           },
           {
             "name": "payment",
-            "description": null,
+            "description": "Determines the payment associated with a transaction.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -110490,7 +111258,7 @@
           },
           {
             "name": "token",
-            "description": null,
+            "description": "Unique token associated with a transaction.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -111105,7 +111873,7 @@
           },
           {
             "name": "createdAt",
-            "description": null,
+            "description": "Date and time at which a transaction event was created.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -111978,7 +112746,7 @@
           },
           {
             "name": "createdAt",
-            "description": null,
+            "description": "Date and time at which payment transaction was created.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -112164,7 +112932,7 @@
           },
           {
             "name": "modifiedAt",
-            "description": null,
+            "description": "Date and time at which payment transaction was modified.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -121951,7 +122719,7 @@
         "enumValues": [
           {
             "name": "ACCOUNT_CHANGE_EMAIL_REQUESTED",
-            "description": "Account email change is requested.",
+            "description": "An account email change is requested.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -121962,8 +122730,32 @@
             "deprecationReason": null
           },
           {
+            "name": "ACCOUNT_CONFIRMED",
+            "description": "An account is confirmed.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ACCOUNT_DELETED",
+            "description": "An account is deleted.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ACCOUNT_DELETE_REQUESTED",
             "description": "An account delete is requested.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ACCOUNT_EMAIL_CHANGED",
+            "description": "An account email was changed",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ACCOUNT_SET_PASSWORD_REQUESTED",
+            "description": "Setting a new password for the account is requested.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -122078,6 +122870,12 @@
           {
             "name": "CHANNEL_DELETED",
             "description": "A channel is deleted.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CHANNEL_METADATA_UPDATED",
+            "description": "A channel metadata is updated.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -122604,6 +123402,12 @@
             "deprecationReason": null
           },
           {
+            "name": "STAFF_SET_PASSWORD_REQUESTED",
+            "description": "Setting a new password for the staff account is requested.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "STAFF_UPDATED",
             "description": "A staff user is updated.",
             "isDeprecated": false,
@@ -122694,7 +123498,7 @@
         "enumValues": [
           {
             "name": "ACCOUNT_CHANGE_EMAIL_REQUESTED",
-            "description": "Account email change is requested.",
+            "description": "An account email change is requested.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -122705,8 +123509,32 @@
             "deprecationReason": null
           },
           {
+            "name": "ACCOUNT_CONFIRMED",
+            "description": "An account is confirmed.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ACCOUNT_DELETED",
+            "description": "An account is deleted.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ACCOUNT_DELETE_REQUESTED",
             "description": "An account delete is requested.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ACCOUNT_EMAIL_CHANGED",
+            "description": "An account email was changed",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ACCOUNT_SET_PASSWORD_REQUESTED",
+            "description": "Setting a new password for the account is requested.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -122821,6 +123649,12 @@
           {
             "name": "CHANNEL_DELETED",
             "description": "A channel is deleted.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CHANNEL_METADATA_UPDATED",
+            "description": "A channel metadata is updated.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -123421,6 +124255,12 @@
           {
             "name": "STAFF_DELETED",
             "description": "A staff user is deleted.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "STAFF_SET_PASSWORD_REQUESTED",
+            "description": "Setting a new password for the staff account is requested.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -123675,7 +124515,31 @@
             "deprecationReason": null
           },
           {
+            "name": "ACCOUNT_CONFIRMED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ACCOUNT_DELETED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ACCOUNT_DELETE_REQUESTED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ACCOUNT_EMAIL_CHANGED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ACCOUNT_SET_PASSWORD_REQUESTED",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -123784,6 +124648,12 @@
           },
           {
             "name": "CHANNEL_DELETED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CHANNEL_METADATA_UPDATED",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -124306,6 +125176,12 @@
           },
           {
             "name": "STAFF_DELETED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "STAFF_SET_PASSWORD_REQUESTED",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

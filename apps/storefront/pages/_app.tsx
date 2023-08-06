@@ -3,18 +3,18 @@ import "styles/globals.css";
 
 import { ApolloProvider } from "@apollo/client";
 import { NextPage } from "next";
-import { AppProps } from "next/app";
+import App, { AppContext, AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
 import React, { ReactElement, ReactNode, useEffect } from "react";
 
 import { RegionsProvider } from "@/components/RegionsProvider";
 import { BaseSeo } from "@/components/seo/BaseSeo";
 import typePolicies from "@/lib/auth/typePolicies";
-import { API_URI } from "@/lib/const";
 import { CheckoutProvider } from "@/lib/providers/CheckoutProvider";
 import { SaleorAuthProvider, useAuthChange, useSaleorAuthClient } from "@saleor/auth-sdk/react";
 import { useAuthenticatedApolloClient } from "@/lib/hooks/useAuthenticatedApolloClient";
 import { getQueryParams } from "@/lib/url";
+import { getSubdomain } from "@/lib/subdomain";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement, router?: AppProps["router"]) => ReactNode;
@@ -22,10 +22,12 @@ type NextPageWithLayout = NextPage & {
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
+  API_URI: string;
 };
 
-function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
-  // console.log("MyApp::: ", API_URI, process.env.API_URI);
+function MyApp({ Component, pageProps, router, API_URI }: AppPropsWithLayout) {
+  // @todo remove this hack when we have a better solution for API_URI
+  process.env.API_URI = API_URI;
 
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
 
@@ -71,5 +73,12 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
     </SaleorAuthProvider>
   );
 }
+
+MyApp.getInitialProps = async (context: AppContext) => {
+  const { ctx } = context;
+  const { API_URI } = getSubdomain(ctx.req?.headers.host!);
+  const pageProps = await App.getInitialProps(context);
+  return { pageProps, API_URI };
+};
 
 export default MyApp;
