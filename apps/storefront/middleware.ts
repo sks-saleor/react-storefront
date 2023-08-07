@@ -11,12 +11,6 @@ export function LocaleRedirectionMiddleware({
   geo,
   ...p
 }: NextRequest): NextMiddlewareResult | Promise<NextMiddlewareResult> {
-  console.log("host:::: ", headers.get("host"));
-  console.log("nextUrl:::: ", nextUrl);
-  console.log("headers:::: ", headers);
-  console.log("p:::: ", p);
-  console.log("headers::::1 ", headers.get("referer"));
-
   getSubdomain(headers.get("host")!);
   if (nextUrl.pathname !== "/") {
     // redirect should only be applied on homepage, without any region/locale chosen

@@ -15,6 +15,7 @@ import { SaleorAuthProvider, useAuthChange, useSaleorAuthClient } from "@saleor/
 import { useAuthenticatedApolloClient } from "@/lib/hooks/useAuthenticatedApolloClient";
 import { getQueryParams } from "@/lib/url";
 import { getSubdomain } from "@/lib/subdomain";
+import { isArray } from "@apollo/client/utilities";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement, router?: AppProps["router"]) => ReactNode;
@@ -76,11 +77,11 @@ function MyApp({ Component, pageProps, router, API_URI }: AppPropsWithLayout) {
 
 MyApp.getInitialProps = async (context: AppContext) => {
   const { ctx } = context;
-  console.log("ctx.req.headers::::: ", ctx.req?.headers);
-  const referringURL = ctx.req?.headers.referer;
-  const requestingURL = ctx.req?.reqPath;
-  console.log("referringURL::: ", referringURL, requestingURL);
-  const { API_URI } = getSubdomain(ctx.req?.headers.host!);
+  let host = ctx.req?.headers.host || ctx.req?.headers["x-forwarded-server"];
+  if (isArray(host)) {
+    host = host[0];
+  }
+  const { API_URI } = getSubdomain(host!);
   const pageProps = await App.getInitialProps(context);
   return { pageProps, API_URI };
 };
