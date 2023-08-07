@@ -53,7 +53,6 @@ module.exports = withBundleAnalyzer({
   },
   async rewrites() {
     const cloudDeploymentUrl = process.env.DASHBOARD_DEPLOYMENT_URL;
-
     return [
       {
         source: "/checkout/",
