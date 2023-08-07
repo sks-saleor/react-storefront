@@ -76,6 +76,10 @@ function MyApp({ Component, pageProps, router, API_URI }: AppPropsWithLayout) {
 
 MyApp.getInitialProps = async (context: AppContext) => {
   const { ctx } = context;
+  console.log("ctx.req.headers::::: ", ctx.req?.headers);
+  const referringURL = ctx.req?.headers.referer;
+  const requestingURL = ctx.req?.reqPath;
+  console.log("referringURL::: ", referringURL, requestingURL);
   const { API_URI } = getSubdomain(ctx.req?.headers.host!);
   const pageProps = await App.getInitialProps(context);
   return { pageProps, API_URI };
