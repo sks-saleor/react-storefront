@@ -77,7 +77,6 @@ function MyApp({ Component, pageProps, router, API_URI }: AppPropsWithLayout) {
 
 MyApp.getInitialProps = async (context: AppContext) => {
   const { ctx } = context;
-  console.log("ctx.req?.headers::: ", ctx.req?.headers);
   let host = ctx.req?.headers["x-forwarded-server"] || ctx.req?.headers.host;
   if (isArray(host)) {
     host = host[0];
